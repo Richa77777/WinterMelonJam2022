@@ -44,7 +44,10 @@ namespace Farm
 
         private void Update()
         {
-            Growth();
+            if (_phase != Phases.Phase0)
+            {
+                Growth();
+            }
         }
 
         public void OnPointerUp(PointerEventData eventData)
@@ -55,6 +58,18 @@ namespace Farm
             {
                 print("Фаза нулевая.");
                 Sowing(_playerCropController.CurrentCrop);
+            }
+
+            if (_phase == Phases.Phase4)
+            {
+                _phase = Phases.Phase0;
+
+                CheckSprite();
+
+                _currentCrop = PlayerCropController.Crops.None;
+                _currentTime = 0f;
+
+                _playerCropController.AddCropValue(1);
             }
         }
 
