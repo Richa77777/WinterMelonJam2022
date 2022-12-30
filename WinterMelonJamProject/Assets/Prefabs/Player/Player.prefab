@@ -129,6 +129,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentCrop: 0
+  _currentCropValue: 0
+  _text: {fileID: 0}
 --- !u!61 &5795462538911416241
 BoxCollider2D:
   m_ObjectHideFlags: 0
