@@ -29,6 +29,7 @@ namespace Farm
         private const int _p2Time = 5;
         private const int _p3Time = 5;
 
+        private PlayerMove _player;
         private PlayerCropController _playerCropController;
 
         private PlayerCropController.Crops _currentCrop;
@@ -36,10 +37,16 @@ namespace Farm
 
         private SpriteRenderer _spriteRenderer;
 
+        [Range(0.0f, 1.0f)]
+        [SerializeField] private float _rayDistance;
+
+        [SerializeField] private LayerMask _mightCollectLayerMask;
+
         private void Start()
         {
             _spriteRenderer = GetComponent<SpriteRenderer>();
             _playerCropController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCropController>();
+            _player = _playerCropController.gameObject.GetComponent<PlayerMove>();
         }
 
         private void Update()
@@ -52,11 +59,8 @@ namespace Farm
 
         public void OnPointerUp(PointerEventData eventData)
         {
-            print("Клавиша нажата.");
-
             if (_phase == Phases.Phase0)
             {
-                print("Фаза нулевая.");
                 Sowing(_playerCropController.CurrentCrop);
             }
 
@@ -75,18 +79,13 @@ namespace Farm
 
         private void Sowing(PlayerCropController.Crops crop)
         {
-            print("Проверка на культуру.");
-
             if (crop != PlayerCropController.Crops.None)
             {
-                print("Проверка пройдена.");
                 _currentCrop = crop;
                 _currentTime = _p1Time + _p2Time + _p3Time;
                 _phase = Phases.Phase1;
                 CheckSprite();
                 Growth();
-
-                print("Культура посажена.");
             }
         }
 
@@ -117,14 +116,14 @@ namespace Farm
         {
             Sprite[] currentSprites = new Sprite[5];
 
-            switch(_currentCrop)
+            switch (_currentCrop)
             {
                 case PlayerCropController.Crops.Crop1:
                     currentSprites = _crop1;
                     break;
             }
 
-            switch(_phase)
+            switch (_phase)
             {
                 case Phases.Phase0:
                     _spriteRenderer.sprite = currentSprites[0];
