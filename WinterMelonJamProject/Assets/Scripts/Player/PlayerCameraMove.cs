@@ -32,6 +32,8 @@ namespace Player
         {
             Vector3 direction = _target.transform.localPosition;
             direction.z = _camera.transform.localPosition.z;
+            direction.x = Mathf.Clamp(direction.x, -9.2f, 10.2f);
+            direction.y = Mathf.Clamp(direction.y, 0.27f, 2.9f);
 
             _camera.transform.localPosition = Vector3.Lerp(_camera.transform.localPosition, direction, _cameraSpeed * Time.deltaTime);
         }
