@@ -24,7 +24,7 @@ namespace Player
         {
             if (Input.GetKeyUp(KeyCode.Q))
             {
-                GlobalEventManager.EventManager.LevelUp(_moneyController.Money, 4 * (_currentLevel));
+                GlobalEventManager.EventManager.LevelUp(_moneyController.MoneyValue, 4 * (_currentLevel));
             }
         }
 

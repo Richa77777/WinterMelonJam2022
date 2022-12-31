@@ -2,22 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OnOfff : MonoBehaviour
+namespace Terminal
 {
-    private GameObject _dialor;
-
-    private void Start()
+    public class OnOfff : MonoBehaviour
     {
-        _dialor = gameObject;
-    }
+        private GameObject _dialor;
 
-    public void On()
-    {
-        _dialor.transform.GetChild(0).gameObject.SetActive(true);
-    }
+        private void Start()
+        {
+            _dialor = gameObject;
+        }
 
-    public void Off()
-    {
-        _dialor.SetActive(false);
+        public void On()
+        {
+            _dialor.transform.GetChild(0).gameObject.SetActive(true);
+        }
+
+        public void Off()
+        {
+            _dialor.SetActive(false);
+        }
     }
 }
