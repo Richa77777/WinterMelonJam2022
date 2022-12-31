@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2844245079371769075}
   - component: {fileID: 2844245079371769074}
   - component: {fileID: 2844245079371769073}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GardenBed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -33,7 +33,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -110,7 +110,7 @@ MonoBehaviour:
   - {fileID: -987489290, guid: 66f48c496c3481343a3b211660a569e0, type: 3}
   - {fileID: 1245753233, guid: 66f48c496c3481343a3b211660a569e0, type: 3}
   - {fileID: 1690727729, guid: 66f48c496c3481343a3b211660a569e0, type: 3}
-  _collectRadius: 0
+  _rayDistance: 0
   _mightCollectLayerMask:
     serializedVersion: 2
     m_Bits: 128
