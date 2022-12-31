@@ -91,15 +91,15 @@ namespace Player
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.LeftShift))
-            {
-                _currentSpeed *= 2;
-            }
+            //if (Input.GetKeyDown(KeyCode.LeftShift))
+            //{
+            //    _currentSpeed *= 2;
+            //}
 
-            if (Input.GetKeyUp(KeyCode.LeftShift))
-            {
-                _currentSpeed = _normalSpeed;
-            }
+            //if (Input.GetKeyUp(KeyCode.LeftShift))
+            //{
+            //    _currentSpeed = _normalSpeed;
+            //}
         }
 
         private void FixedUpdate()
