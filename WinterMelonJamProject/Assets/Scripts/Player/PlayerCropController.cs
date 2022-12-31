@@ -28,8 +28,11 @@ namespace Player
 
         public void AddCropValue(int addValue)
         {
-            _currentCropValue += addValue;
-            _text.text = $"x{_currentCropValue}";
+            if (_currentCropValue + addValue <= 9999999)
+            {
+                _currentCropValue += addValue;
+                _text.text = $"x{_currentCropValue}";
+            }
         }
 
         private void Update()
@@ -38,7 +41,7 @@ namespace Player
             {
                 if (_chooseCropAnimator.GetBool("isAppear") == true) 
                 {
-                    DisappearanceTab();
+                    StartCoroutine(DisappearanceTab());
                 }
 
                 else if (_chooseCropAnimator.GetBool("isAppear") == false)
@@ -50,15 +53,20 @@ namespace Player
 
         private void AppearanceTab()
         {
+            _chooseCropAnimator.gameObject.SetActive(true);
             _chooseCropAnimator.Play("AppearanceTab", -1, 0);
             _chooseCropAnimator.SetBool("isAppear", true);
         }
 
-        private void DisappearanceTab()
+        private IEnumerator DisappearanceTab()
         {
             _chooseCropAnimator.Play("DisappearanceTab", -1, 0);
             _chooseCropAnimator.SetBool("isAppear", false);
-        }
 
+            yield return new WaitForSeconds(0.35f);
+
+            _chooseCropAnimator.gameObject.SetActive(false);
+
+        }
     }
 }

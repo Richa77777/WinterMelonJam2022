@@ -30,9 +30,12 @@ namespace Player
 
         public void AddLevel(int value, int cost)
         {
-            _currentLevel += value;
-            _moneyController.AddMoney(-cost);
-            _text.text = _currentLevel.ToString();
+            if (_currentLevel + value <= 25)
+            {
+                _currentLevel += value;
+                _moneyController.AddMoney(-cost);
+                _text.text = _currentLevel.ToString();
+            }
         }
     }
 }
