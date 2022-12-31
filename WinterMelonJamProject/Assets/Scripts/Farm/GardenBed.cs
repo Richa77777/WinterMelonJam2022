@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Player;
+using TMPro;
 
 namespace Farm
 {
@@ -28,6 +29,11 @@ namespace Farm
         private const int _p1Time = 3;
         private const int _p2Time = 5;
         private const int _p3Time = 5;
+        private const float q = 0.04f;
+
+        private float n1;
+        private float n2;
+        private float n3;
 
         private PlayerMove _player;
         private PlayerCropController _playerCropController;
@@ -37,20 +43,43 @@ namespace Farm
 
         private SpriteRenderer _spriteRenderer;
 
-        [Range(0.0f, 1.0f)]
-        [SerializeField] private float _rayDistance;
+        private PlayerLevelController _playerLevelController;
 
-        [SerializeField] private LayerMask _mightCollectLayerMask;
+        [SerializeField] private TextMeshProUGUI _textTimeCrop;
 
         private void Start()
         {
-            _spriteRenderer = GetComponent<SpriteRenderer>();
             _playerCropController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCropController>();
+            _spriteRenderer = GetComponent<SpriteRenderer>();
             _player = _playerCropController.gameObject.GetComponent<PlayerMove>();
+            _playerLevelController = _player.gameObject.GetComponent<PlayerLevelController>();
+
+            float x = (_playerLevelController.CurrentLevel - 1) * q;
+
+            n1 = _p1Time * (1 - x);
+            n2 = _p2Time * (1 - x);
+            n3 = _p3Time * (1 - x);
+
+            float i = n1 + n2 + n3;
+
+            _textTimeCrop.text = i.ToString("F2");
         }
 
         private void Update()
         {
+            if (Input.GetKeyUp(KeyCode.Q))
+            {
+                float x = (_playerLevelController.CurrentLevel - 1) * q;
+
+                n1 = _p1Time * (1 - x);
+                n2 = _p2Time * (1 - x);
+                n3 = _p3Time * (1 - x);
+
+                float i = n1 + n2 + n3;
+
+                _textTimeCrop.text = i.ToString("F2");
+            }
+
             if (_phase != Phases.Phase0)
             {
                 Growth();
@@ -81,8 +110,17 @@ namespace Farm
         {
             if (crop != PlayerCropController.Crops.None)
             {
+                float x = (_playerLevelController.CurrentLevel - 1) * q;
+
+                n1 = _p1Time * (1 - x);
+                n2 = _p2Time * (1 - x);
+                n3 = _p3Time * (1 - x);
+
                 _currentCrop = crop;
-                _currentTime = _p1Time + _p2Time + _p3Time;
+                _currentTime = n1 + n2 + n3;
+
+                _textTimeCrop.text = _currentTime.ToString("F2");
+
                 _phase = Phases.Phase1;
                 CheckSprite();
                 Growth();
@@ -148,7 +186,7 @@ namespace Farm
         }
         public void OnPointerDown(PointerEventData eventData)
         {
-            throw new System.NotImplementedException();
+            
         }
     }
 }

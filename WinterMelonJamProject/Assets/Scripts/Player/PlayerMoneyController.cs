@@ -14,8 +14,11 @@ namespace Player
 
         public void AddMoney(int value)
         {
-            _moneyValue += value;
-            _text.text = $"x{_moneyValue}";
+            if (_moneyValue + value <= 9999999)
+            {
+                _moneyValue += value;
+                _text.text = $"x{_moneyValue}";
+            }
         }
     }
 }

@@ -81,7 +81,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 5
-  m_Sprite: {fileID: 2100566992, guid: 66f48c496c3481343a3b211660a569e0, type: 3}
+  m_Sprite: {fileID: -1994849281, guid: 0dc52ae990167fb4185260d235a29122, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -105,15 +105,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _crop1:
-  - {fileID: 2100566992, guid: 66f48c496c3481343a3b211660a569e0, type: 3}
-  - {fileID: 2094082830, guid: 66f48c496c3481343a3b211660a569e0, type: 3}
-  - {fileID: -987489290, guid: 66f48c496c3481343a3b211660a569e0, type: 3}
-  - {fileID: 1245753233, guid: 66f48c496c3481343a3b211660a569e0, type: 3}
-  - {fileID: 1690727729, guid: 66f48c496c3481343a3b211660a569e0, type: 3}
-  _rayDistance: 0
-  _mightCollectLayerMask:
-    serializedVersion: 2
-    m_Bits: 128
+  - {fileID: -1994849281, guid: 0dc52ae990167fb4185260d235a29122, type: 3}
+  - {fileID: -1982288985, guid: 0dc52ae990167fb4185260d235a29122, type: 3}
+  - {fileID: 1632180539, guid: 0dc52ae990167fb4185260d235a29122, type: 3}
+  - {fileID: -88137280, guid: 0dc52ae990167fb4185260d235a29122, type: 3}
+  - {fileID: -1415626764, guid: 0dc52ae990167fb4185260d235a29122, type: 3}
+  _textTimeCrop: {fileID: 0}
 --- !u!222 &2844245079371769074
 CanvasRenderer:
   m_ObjectHideFlags: 0
