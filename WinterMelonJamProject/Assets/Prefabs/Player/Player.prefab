@@ -132,6 +132,7 @@ MonoBehaviour:
   _currentCrop: 0
   _currentCropValue: 0
   _text: {fileID: 0}
+  _chooseCropAnimator: {fileID: 0}
 --- !u!114 &898746311327361388
 MonoBehaviour:
   m_ObjectHideFlags: 0
