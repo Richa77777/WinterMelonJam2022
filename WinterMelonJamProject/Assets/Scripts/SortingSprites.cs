@@ -22,7 +22,7 @@ public class SortingSprites : MonoBehaviour
 
         if (_isStatic)
         {
-            this.enabled = false;
+            enabled = false;
         }
     }
 }

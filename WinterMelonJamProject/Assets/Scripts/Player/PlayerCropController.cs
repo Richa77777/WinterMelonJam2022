@@ -16,8 +16,10 @@ namespace Player
         [SerializeField] private Crops _currentCrop;
         [SerializeField] private int _currentCropValue;
         [SerializeField] private TextMeshProUGUI _text;
+        [SerializeField] private Animator _chooseCropAnimator;
 
         public Crops CurrentCrop { get { return _currentCrop; } }
+
 
         public void SetCurrentCrop(string crop)
         {
@@ -28,6 +30,34 @@ namespace Player
         {
             _currentCropValue += addValue;
             _text.text = $"x{_currentCropValue}";
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyUp(KeyCode.E))
+            {
+                if (_chooseCropAnimator.GetBool("isAppear") == true) 
+                {
+                    DisappearanceTab();
+                }
+
+                else if (_chooseCropAnimator.GetBool("isAppear") == false)
+                {
+                    AppearanceTab();
+                }
+            }
+        }
+
+        private void AppearanceTab()
+        {
+            _chooseCropAnimator.Play("AppearanceTab", -1, 0);
+            _chooseCropAnimator.SetBool("isAppear", true);
+        }
+
+        private void DisappearanceTab()
+        {
+            _chooseCropAnimator.Play("DisappearanceTab", -1, 0);
+            _chooseCropAnimator.SetBool("isAppear", false);
         }
 
     }
