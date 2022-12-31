@@ -15,6 +15,7 @@ namespace Player
         public void AddMoney(int value)
         {
             _moneyValue += value;
+            _text.text = $"x{_moneyValue}";
         }
     }
 }

@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5795462538911416143}
   - component: {fileID: 2664137726100630873}
   - component: {fileID: 5161988203459265499}
+  - component: {fileID: 4600522246772725902}
   - component: {fileID: 898746311327361388}
   - component: {fileID: 5795462538911416241}
   - component: {fileID: 5795462538911416142}
@@ -149,6 +150,20 @@ MonoBehaviour:
   _currentCropValue: 0
   _text: {fileID: 0}
   _chooseCropAnimator: {fileID: 0}
+--- !u!114 &4600522246772725902
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5795462538911416139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97f0d79b9dda113418e9273132cbf270, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentLevel: 1
+  _text: {fileID: 0}
 --- !u!114 &898746311327361388
 MonoBehaviour:
   m_ObjectHideFlags: 0
