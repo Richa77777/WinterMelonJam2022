@@ -10,7 +10,7 @@ namespace Player
         [SerializeField] private int _moneyValue;
         [SerializeField] private TextMeshProUGUI _text;
 
-        public int Money { get { return _moneyValue; } }
+        public int MoneyValue { get { return _moneyValue; } }
 
         public void AddMoney(int value)
         {

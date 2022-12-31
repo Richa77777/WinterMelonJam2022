@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using Player;
 using TMPro;
+using System.Linq;
 
 namespace Farm
 {
@@ -47,12 +48,19 @@ namespace Farm
 
         [SerializeField] private TextMeshProUGUI _textTimeCrop;
 
+        [SerializeField] private LayerMask _gardenBedLayerMask;
+
+        [SerializeField] float _radiusCheckCircle;
+
+        private Collider2D _collider;
+ 
         private void Start()
         {
             _playerCropController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCropController>();
             _spriteRenderer = GetComponent<SpriteRenderer>();
             _player = _playerCropController.gameObject.GetComponent<PlayerMove>();
             _playerLevelController = _player.gameObject.GetComponent<PlayerLevelController>();
+            _collider = GetComponent<Collider2D>();
 
             float x = (_playerLevelController.CurrentLevel - 1) * q;
 
@@ -90,19 +98,30 @@ namespace Farm
         {
             if (_phase == Phases.Phase0)
             {
-                Sowing(_playerCropController.CurrentCrop);
+                Collider2D[] hits = Physics2D.OverlapCircleAll(new Vector3(_player.gameObject.transform.position.x, _player.gameObject.transform.position.y - 0.75f, 0f), _radiusCheckCircle, _gardenBedLayerMask);
+
+                if (hits.Contains(_collider))
+                {
+                    Sowing(_playerCropController.CurrentCrop);
+                }
+
             }
 
             if (_phase == Phases.Phase4)
             {
-                _phase = Phases.Phase0;
+                Collider2D[] hits = Physics2D.OverlapCircleAll(new Vector3(_player.gameObject.transform.position.x, _player.gameObject.transform.position.y - 0.75f, 0f), _radiusCheckCircle, _gardenBedLayerMask);
 
-                CheckSprite();
+                if (hits.Contains(_collider))
+                {
+                    _phase = Phases.Phase0;
 
-                _currentCrop = PlayerCropController.Crops.None;
-                _currentTime = 0f;
+                    CheckSprite();
 
-                _playerCropController.AddCropValue(1);
+                    _currentCrop = PlayerCropController.Crops.None;
+                    _currentTime = 0f;
+
+                    _playerCropController.AddCropValue(1);
+                }
             }
         }
 

@@ -111,6 +111,10 @@ MonoBehaviour:
   - {fileID: -88137280, guid: 0dc52ae990167fb4185260d235a29122, type: 3}
   - {fileID: -1415626764, guid: 0dc52ae990167fb4185260d235a29122, type: 3}
   _textTimeCrop: {fileID: 0}
+  _gardenBedLayerMask:
+    serializedVersion: 2
+    m_Bits: 128
+  _radiusCheckCircle: 0.5
 --- !u!222 &2844245079371769074
 CanvasRenderer:
   m_ObjectHideFlags: 0

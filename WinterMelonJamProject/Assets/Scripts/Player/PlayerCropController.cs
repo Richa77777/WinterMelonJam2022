@@ -19,6 +19,7 @@ namespace Player
         [SerializeField] private Animator _chooseCropAnimator;
 
         public Crops CurrentCrop { get { return _currentCrop; } }
+        public int CurrentCropValue { get { return _currentCropValue; } }
 
 
         public void SetCurrentCrop(string crop)
