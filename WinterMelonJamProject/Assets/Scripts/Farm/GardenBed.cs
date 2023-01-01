@@ -50,7 +50,7 @@ namespace Farm
 
         [SerializeField] private LayerMask _gardenBedLayerMask;
 
-        [SerializeField] float _radiusCheckCircle;
+        [SerializeField] Vector2 _sizeBoxCast;
 
         private Collider2D _collider;
 
@@ -104,7 +104,7 @@ namespace Farm
         {
             if (_phase == Phases.Phase0)
             {
-                Collider2D[] hits = Physics2D.OverlapCircleAll(new Vector3(_player.gameObject.transform.position.x, _player.gameObject.transform.position.y - 0.75f, 0f), _radiusCheckCircle, _gardenBedLayerMask);
+                Collider2D[] hits = Physics2D.OverlapBoxAll(new Vector3(_player.gameObject.transform.position.x, _player.gameObject.transform.position.y - 1f, 0f), _sizeBoxCast, _gardenBedLayerMask);
 
                 if (hits.Contains(_collider))
                 {
@@ -116,7 +116,7 @@ namespace Farm
 
             if (_phase == Phases.Phase4)
             {
-                Collider2D[] hits = Physics2D.OverlapCircleAll(new Vector3(_player.gameObject.transform.position.x, _player.gameObject.transform.position.y - 0.75f, 0f), _radiusCheckCircle, _gardenBedLayerMask);
+                Collider2D[] hits = Physics2D.OverlapBoxAll(new Vector3(_player.gameObject.transform.position.x, _player.gameObject.transform.position.y - 1f, 0f), _sizeBoxCast, _gardenBedLayerMask);
 
                 if (hits.Contains(_collider))
                 {

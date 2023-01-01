@@ -20,11 +20,11 @@ namespace Terminal
 
         private Player.PlayerCropController _cropController;
         private Player.PlayerMoneyController _moneyController;
+        private Player.PlayerCameraMove _playerCameraMove;
 
         [SerializeField] private GameObject _dialogTab;
 
         private Animator _animator;
-        private Animator _cameraAnimator;
 
         private AudioSource _audioSource;
 
@@ -41,11 +41,11 @@ namespace Terminal
         private void Start()
         {
             _cropController = GameObject.FindGameObjectWithTag("Player").GetComponent<Player.PlayerCropController>();
-            _moneyController = GameObject.FindGameObjectWithTag("Player").GetComponent<Player.PlayerMoneyController>();
+            _moneyController = _cropController.gameObject.GetComponent<Player.PlayerMoneyController>();
+            _playerCameraMove = _moneyController.gameObject.GetComponent<Player.PlayerCameraMove>();
 
             _camera = Camera.main;
             _animator = GetComponent<Animator>();
-            _cameraAnimator = _camera.GetComponent<Animator>();
             _audioSource = GetComponent<AudioSource>();
 
             GenerateOrder();
@@ -57,16 +57,14 @@ namespace Terminal
             {
                 if (_dialogTab.activeInHierarchy == true)
                 {
-                    Time.timeScale = 0f;
-
                     _trigger._stop = true;
-                    _cameraAnimator.Play("GoToTerminal", -1, 0f);
+                    StartCoroutine(GoToTerminal());
                     StartCoroutine(CheckOrderConditions());
                 }
             }
         }
 
-        public IEnumerator CheckOrderConditions()
+        private IEnumerator CheckOrderConditions()
         {
             if (_cropController.CurrentCropValue >= _cropsAmount)
             {
@@ -96,10 +94,33 @@ namespace Terminal
             }
         }
 
+        private IEnumerator GoToTerminal()
+        {
+            Vector3 direction = new Vector3(transform.localPosition.x, transform.localPosition.y, -10f);
+
+            while (_camera.transform.localPosition != transform.localPosition)
+            {
+                if (_playerCameraMove.enabled == false)
+                {
+                    _camera.transform.localPosition = Vector3.Lerp(_camera.transform.localPosition, direction, 2.5f * Time.deltaTime);
+                    yield return null;
+                }
+
+                else if (_playerCameraMove.enabled == true)
+                {
+                    StopCoroutine(GoToTerminal());
+                    yield return null;
+                }
+            }
+        }
+
         private void TabOn()
         {
-            Time.timeScale = 1f;
-            _dialogTab.SetActive(true);
+            if (_playerCameraMove.enabled == false)
+            {
+                _dialogTab.SetActive(true);
+            }
+
             _trigger._stop = false;
             _animator.Play("Nooone", -1, 0);
         }
@@ -132,12 +153,14 @@ namespace Terminal
 
         public void PlayTerminal()
         {
-            _audioSource.PlayOneShot(_terminal);
+            _audioSource.clip = _terminal;
+            _audioSource.Play();
         }
 
         public void PlayTerminal2()
         {
-            _audioSource.PlayOneShot(_terminal2);
+            _audioSource.clip = _terminal2;
+            _audioSource.Play();
         }
     }
 }
