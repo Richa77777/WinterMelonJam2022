@@ -53,7 +53,12 @@ namespace Farm
         [SerializeField] float _radiusCheckCircle;
 
         private Collider2D _collider;
- 
+
+        private AudioSource _audioSource;
+
+        [SerializeField] private AudioClip _seed;
+        [SerializeField] private AudioClip _gather;
+
         private void Start()
         {
             _playerCropController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCropController>();
@@ -61,6 +66,7 @@ namespace Farm
             _player = _playerCropController.gameObject.GetComponent<PlayerMove>();
             _playerLevelController = _player.gameObject.GetComponent<PlayerLevelController>();
             _collider = GetComponent<Collider2D>();
+            _audioSource = GetComponent<AudioSource>();
 
             float x = (_playerLevelController.CurrentLevel - 1) * q;
 
@@ -102,6 +108,7 @@ namespace Farm
 
                 if (hits.Contains(_collider))
                 {
+                    _audioSource.PlayOneShot(_seed);
                     Sowing(_playerCropController.CurrentCrop);
                 }
 
@@ -113,6 +120,8 @@ namespace Farm
 
                 if (hits.Contains(_collider))
                 {
+                    _audioSource.PlayOneShot(_gather);
+
                     _phase = Phases.Phase0;
 
                     CheckSprite();

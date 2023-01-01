@@ -28,10 +28,15 @@ namespace Player
         float _horizontalAxis;
         float _verticalAxis;
 
+        private AudioSource _audioSource;
+        [SerializeField] private AudioClip _stepSound;
+
         private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody2D>();
             _animator = GetComponent<Animator>();
+            _audioSource = GetComponent<AudioSource>();
+
             _currentSpeed = _normalSpeed;
         }
 
@@ -115,6 +120,11 @@ namespace Player
             Vector2 direction = new Vector2(_horizontalAxis, _verticalAxis);
 
             _rigidbody.velocity = direction.normalized * _currentSpeed;
+        }
+
+        public void PlaySound()
+        {
+            _audioSource.Play();
         }
     }
 }

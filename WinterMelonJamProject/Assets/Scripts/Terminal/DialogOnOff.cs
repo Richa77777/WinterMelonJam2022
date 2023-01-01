@@ -12,6 +12,8 @@ namespace Terminal
         private Player.PlayerCameraMove _playerCameraMove;
         private Camera _camera;
 
+        public bool _stop = false;
+
         private void Start()
         {
             _camera = Camera.main;
@@ -48,10 +50,14 @@ namespace Terminal
         {
             while (_camera.transform.position != _target.transform.position)
             {
-                Vector3 direction = new Vector3(_target.transform.position.x, _target.transform.position.y, -10f);
+                if (_stop == false)
+                {
+                    Vector3 direction = new Vector3(_target.transform.position.x, _target.transform.position.y, -10f);
 
-                _camera.transform.position = Vector3.Lerp(_camera.transform.position, direction, 2.5f * Time.deltaTime);
-                _camera.orthographicSize = Mathf.Lerp(_camera.orthographicSize, 1.25f, 2.5f * Time.deltaTime);
+                    _camera.transform.position = Vector3.Lerp(_camera.transform.position, direction, 2.5f * Time.deltaTime);
+                    _camera.orthographicSize = Mathf.Lerp(_camera.orthographicSize, 1.25f, 2.5f * Time.deltaTime);
+                }
+
                 yield return null;
             }
         }
