@@ -527,6 +527,8 @@ GameObject:
   - component: {fileID: 821824606}
   - component: {fileID: 821824605}
   - component: {fileID: 821824604}
+  - component: {fileID: 821824608}
+  - component: {fileID: 821824607}
   m_Layer: 5
   m_Name: Start
   m_TagString: Untagged
@@ -544,7 +546,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1466791007}
   m_RootOrder: -1
@@ -648,6 +650,35 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 821824602}
   m_CullTransparentMesh: 1
+--- !u!114 &821824607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 821824602}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0146630077aa264a9d87b53d84b6eb5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _onAnim: {fileID: 0}
+  _offAnim: {fileID: 0}
+--- !u!111 &821824608
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 821824602}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations: []
+  m_WrapMode: 0
+  m_PlayAutomatically: 1
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &1256274465
 GameObject:
   m_ObjectHideFlags: 0
