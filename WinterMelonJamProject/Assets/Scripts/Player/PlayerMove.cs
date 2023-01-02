@@ -4,6 +4,8 @@ using UnityEngine;
 
 namespace Player
 {
+    [RequireComponent(typeof(Rigidbody), typeof(Animator), typeof(BoxCollider2D))]
+
     public class PlayerMove : MonoBehaviour
     {
         public enum PlayerRotates
@@ -23,15 +25,25 @@ namespace Player
         private float _currentSpeed;
 
         private Rigidbody2D _rigidbody;
+        private BoxCollider2D _collider;
         private Animator _animator;
 
         float _horizontalAxis;
         float _verticalAxis;
 
+        private AudioSource _audioSource;
+
+        [SerializeField] private AudioClip _stepSound;
+
+        private bool _canMove = true;
+
         private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody2D>();
             _animator = GetComponent<Animator>();
+            _audioSource = GetComponent<AudioSource>();
+            _collider = GetComponent<BoxCollider2D>();
+
             _currentSpeed = _normalSpeed;
         }
 
@@ -47,10 +59,12 @@ namespace Player
                 {
                     case > 0:
                         _playerRotate = PlayerRotates.Right;
+                        _collider.size = new Vector2(0.2819109f, 2.117311f);
                         break;
 
                     case < 0:
                         _playerRotate = PlayerRotates.Left;
+                        _collider.size = new Vector2(0.2819109f, 2.117311f);
                         break;
                 }
 
@@ -58,10 +72,12 @@ namespace Player
                 {
                     case > 0:
                         _playerRotate = PlayerRotates.Up;
+                        _collider.size = new Vector2(0.40346241f, 2.11731052f);
                         break;
 
                     case < 0:
                         _playerRotate = PlayerRotates.Down;
+                        _collider.size = new Vector2(0.40346241f, 2.11731052f);
                         break;
                 }
             }
@@ -104,7 +120,10 @@ namespace Player
 
         private void FixedUpdate()
         {
-            Move();
+            if (_canMove)
+            {
+                Move();
+            }
         }
 
         private void Move()
@@ -116,5 +135,26 @@ namespace Player
 
             _rigidbody.velocity = direction.normalized * _currentSpeed;
         }
+
+        public void PlaySound()
+        {
+            _audioSource.Play();
+        }
+
+        //public void BlockMoving()
+        //{
+        //    _canMove = false;
+
+
+        //    _horizontalAxis = 0f;
+        //    _verticalAxis = 0f;
+
+        //    _rigidbody.velocity = new Vector2(_horizontalAxis, _verticalAxis) * _currentSpeed;
+        //}
+
+        //public void UnblockMoving()
+        //{
+        //    _canMove = true;
+        //}
     }
 }

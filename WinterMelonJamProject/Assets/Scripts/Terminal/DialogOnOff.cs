@@ -10,19 +10,22 @@ namespace Terminal
         [SerializeField] private GameObject _target;
 
         private Player.PlayerCameraMove _playerCameraMove;
+        private Player.PlayerMove _playerMove;
         private Camera _camera;
+
+        public bool _stop = false;
 
         private void Start()
         {
             _camera = Camera.main;
             _playerCameraMove = GameObject.FindGameObjectWithTag("Player").GetComponent<Player.PlayerCameraMove>();
+            _playerMove = _playerCameraMove.gameObject.GetComponent<Player.PlayerMove>();
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
             if (collision.gameObject.CompareTag("Player"))
             {
-                _playerCameraMove.enabled = false;
 
                 StopAllCoroutines();
                 StartCoroutine(GoToTerminal());
@@ -39,6 +42,7 @@ namespace Terminal
                 StopAllCoroutines();
                 StartCoroutine(Return());
                 _playerCameraMove.enabled = true;
+
                 _dialogAnimator.gameObject.transform.GetChild(0).gameObject.SetActive(false);
                 _dialogAnimator.Play("DialogAnimOff", -1, 0);
             }
@@ -46,12 +50,19 @@ namespace Terminal
 
         private IEnumerator GoToTerminal()
         {
+            //_playerMove.BlockMoving();
+            _playerCameraMove.enabled = false;
+
+            Vector3 direction = new Vector3(_target.transform.position.x, _target.transform.position.y, -10f);
+
             while (_camera.transform.position != _target.transform.position)
             {
-                Vector3 direction = new Vector3(_target.transform.position.x, _target.transform.position.y, -10f);
+                if (_stop == false)
+                {
+                    _camera.transform.position = Vector3.Lerp(_camera.transform.position, direction, 2.5f * Time.deltaTime);
+                    _camera.orthographicSize = Mathf.Lerp(_camera.orthographicSize, 1.25f, 2.5f * Time.deltaTime);
+                }
 
-                _camera.transform.position = Vector3.Lerp(_camera.transform.position, direction, 2.5f * Time.deltaTime);
-                _camera.orthographicSize = Mathf.Lerp(_camera.orthographicSize, 1.25f, 2.5f * Time.deltaTime);
                 yield return null;
             }
         }
@@ -63,6 +74,8 @@ namespace Terminal
                 _camera.orthographicSize = Mathf.Lerp(_camera.orthographicSize, 2.5f, 2.5f * Time.deltaTime);
                 yield return null;
             }
+
+            //_playerMove.UnblockMoving();
         }
     }
 
