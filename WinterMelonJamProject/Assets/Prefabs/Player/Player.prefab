@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5795462538911416140}
   - component: {fileID: 5795462538911416141}
+  - component: {fileID: 3799949019373408263}
   - component: {fileID: 5795462538911416240}
   - component: {fileID: 5795462538911416143}
   - component: {fileID: 2664137726100630873}
@@ -89,12 +90,36 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.32, y: 0.53}
+  m_Size: {x: 0.3, y: 0.53}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &3799949019373408263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5795462538911416139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fc6b1688da0d3d4199d0cb0b16734b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _CropsBase:
+    _None:
+      _name: None
+    _Crop1:
+      _name: Ambrosia
+      _sprite: {fileID: -1070285547, guid: 0dc52ae990167fb4185260d235a29122, type: 3}
+      _gardenBedSprites:
+      - {fileID: -1994849281, guid: 0dc52ae990167fb4185260d235a29122, type: 3}
+      - {fileID: -1982288985, guid: 0dc52ae990167fb4185260d235a29122, type: 3}
+      - {fileID: 1632180539, guid: 0dc52ae990167fb4185260d235a29122, type: 3}
+      - {fileID: -88137280, guid: 0dc52ae990167fb4185260d235a29122, type: 3}
+      - {fileID: -1415626764, guid: 0dc52ae990167fb4185260d235a29122, type: 3}
 --- !u!114 &5795462538911416240
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -122,6 +147,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cameraSpeed: 1.5
+  _minAxisX: -4.55
+  _maxAxisX: 1.52
+  _minAxisY: -0.48
+  _maxAxisY: 3.45
 --- !u!114 &2664137726100630873
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148,10 +177,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3c2b3e545ad68d4a956e5ffa2869a72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _cropsBase: {fileID: 0}
   _currentCrop: 1
   _currentCropValue: 0
   _text: {fileID: 0}
   _chooseCropAnimator: {fileID: 0}
+  _currentCropImage: {fileID: 0}
+  _imageDistanceX: -20
+  _imageDistanceY: 35.5
 --- !u!114 &4600522246772725902
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,8 +249,8 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.28, y: 2.12}
-    newSize: {x: 0.32, y: 0.53}
+    oldSize: {x: 1.2, y: 2.12}
+    newSize: {x: 0.3, y: 0.53}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -284,7 +317,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 3ba5fb80a58d03741b65a691dc434897, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.9
   m_Pitch: 1
   Loop: 0
   Mute: 0

@@ -12,6 +12,9 @@ namespace Player
         [Range(0.0f, 5.0f)]
         [SerializeField] private float _cameraSpeed;
 
+        [SerializeField] private float _minAxisX, _maxAxisX;
+        [SerializeField] private float _minAxisY, _maxAxisY;
+
         private void Awake()
         {
             _target = gameObject;
@@ -32,8 +35,8 @@ namespace Player
         {
             Vector3 direction = _target.transform.localPosition;
             direction.z = _camera.transform.localPosition.z;
-            direction.x = Mathf.Clamp(direction.x, -4.55f, 1.52f);
-            direction.y = Mathf.Clamp(direction.y, -0.48f, 3.45f);
+            direction.x = Mathf.Clamp(direction.x, _minAxisX, _maxAxisX);// -4.55f, 1.52f);
+            direction.y = Mathf.Clamp(direction.y, _minAxisY, _maxAxisY);// -0.48f, 3.45f);
 
             _camera.transform.localPosition = Vector3.Lerp(_camera.transform.localPosition, direction, _cameraSpeed * Time.deltaTime);
         }

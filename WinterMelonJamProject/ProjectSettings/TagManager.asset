@@ -6,6 +6,7 @@ TagManager:
   tags:
   - PopUpPoint
   - GameObj
+  - Terminal
   layers:
   - Default
   - TransparentFX
