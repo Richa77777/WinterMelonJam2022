@@ -14,8 +14,8 @@ namespace Terminal
 
         private Camera _camera;
 
-        public bool _goToDialogStop = true;
-        public bool _returnStop = true;
+        private bool _goToDialogStop = true;
+        private bool _returnStop = true;
 
         public bool GoToDialogStop { get { return _goToDialogStop; } set { _goToDialogStop = value; } }
 

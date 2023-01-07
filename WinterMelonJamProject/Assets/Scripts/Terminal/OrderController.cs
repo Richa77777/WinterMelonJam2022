@@ -37,7 +37,8 @@ namespace Terminal
 
         [SerializeField] private DialogOnOff _trigger;
 
-        public bool _goToTerminalStop = true;
+        private bool _goToTerminalStop = true;
+        private bool _inProgress = false;
 
         private void Start()
         {
@@ -56,7 +57,7 @@ namespace Terminal
         {
             if (Input.GetKeyUp(KeyCode.C))
             {
-                if (_dialogTab.activeInHierarchy == true)
+                if (_dialogTab.activeInHierarchy == true && _inProgress == false)
                 {
                     _trigger.StopGoToDialog();
 
@@ -73,19 +74,28 @@ namespace Terminal
             if (_cropController.CurrentCropValue >= _cropsAmount)
             {
                 _dialogTab.SetActive(false);
+                
                 _animator.Play("Accept", -1, 0);
-                _audioSource.PlayOneShot(_taskCompleted);
+
+                _audioSource.clip = _taskCompleted;
+                _audioSource.Play();
+                
                 _cropController.AddCropValue(-_cropsAmount);
                 _moneyController.AddMoney(_award);
+                
                 _orderNumber++;
+                
                 GenerateOrder();
             }
 
             else if (_cropController.CurrentCropValue < _cropsAmount)
             {
                 _dialogTab.SetActive(false);
+
                 _animator.Play("Angry", -1, 0);
-                _audioSource.PlayOneShot(_notCompleted);
+
+                _audioSource.clip = _notCompleted;
+                _audioSource.Play();
             }
 
             yield return new WaitForSeconds(2f);
@@ -95,7 +105,6 @@ namespace Terminal
 
         private IEnumerator GoToTerminal()
         {
-            print("Идет GoToTerminal");
             _goToTerminalStop = false;
 
             Vector3 direction = new Vector3(transform.localPosition.x, transform.localPosition.y, -10f);
@@ -113,11 +122,8 @@ namespace Terminal
 
             if (_playerCameraMove.enabled == false)
             {
-                print("Полетел");
                 _trigger.StartGoToDialog();
             }
-
-            print("Конец GoToTerminal");
         }
 
         private void TabOn()
