@@ -37,6 +37,8 @@ namespace Terminal
 
         [SerializeField] private DialogOnOff _trigger;
 
+        private bool _goToTerminalStop = true;
+        private bool _inProgress = false;
 
         private void Start()
         {
@@ -53,11 +55,12 @@ namespace Terminal
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.C))
+            if (Input.GetKeyUp(KeyCode.C))
             {
-                if (_dialogTab.activeInHierarchy == true)
+                if (_dialogTab.activeInHierarchy == true && _inProgress == false)
                 {
-                    _trigger._stop = true;
+                    _trigger.StopGoToDialog();
+
                     StartCoroutine(GoToTerminal());
                     StartCoroutine(CheckOrderConditions());
                 }
@@ -66,51 +69,60 @@ namespace Terminal
 
         private IEnumerator CheckOrderConditions()
         {
+            yield return new WaitForSecondsRealtime(0.5f);
+
             if (_cropController.CurrentCropValue >= _cropsAmount)
             {
                 _dialogTab.SetActive(false);
+                
                 _animator.Play("Accept", -1, 0);
-                _audioSource.PlayOneShot(_taskCompleted);
+
+                _audioSource.clip = _taskCompleted;
+                _audioSource.Play();
+                
                 _cropController.AddCropValue(-_cropsAmount);
                 _moneyController.AddMoney(_award);
+                
                 _orderNumber++;
+                
                 GenerateOrder();
-
-                yield return new WaitForSecondsRealtime(2f);
-
-                TabOn();
             }
 
             else if (_cropController.CurrentCropValue < _cropsAmount)
             {
                 _dialogTab.SetActive(false);
+
                 _animator.Play("Angry", -1, 0);
-                _audioSource.PlayOneShot(_notCompleted);
 
-                yield return new WaitForSecondsRealtime(2f);
-
-                TabOn();
-
+                _audioSource.clip = _notCompleted;
+                _audioSource.Play();
             }
+
+            yield return new WaitForSeconds(2f);
+            
+            TabOn();;
         }
 
         private IEnumerator GoToTerminal()
         {
+            _goToTerminalStop = false;
+
             Vector3 direction = new Vector3(transform.localPosition.x, transform.localPosition.y, -10f);
 
-            while (_camera.transform.localPosition != transform.localPosition)
+            while (_camera.transform.localPosition != Vector3.Lerp(_camera.transform.localPosition, direction, 2.5f * Time.deltaTime) && !_goToTerminalStop)
             {
                 if (_playerCameraMove.enabled == false)
                 {
                     _camera.transform.localPosition = Vector3.Lerp(_camera.transform.localPosition, direction, 2.5f * Time.deltaTime);
                     yield return null;
                 }
+            }
 
-                else if (_playerCameraMove.enabled == true)
-                {
-                    StopCoroutine(GoToTerminal());
-                    yield return null;
-                }
+            _goToTerminalStop = true;
+
+            if (_playerCameraMove.enabled == false)
+            {
+                _trigger.StartGoToDialog();
             }
         }
 
@@ -121,7 +133,6 @@ namespace Terminal
                 _dialogTab.SetActive(true);
             }
 
-            _trigger._stop = false;
             _animator.Play("Nooone", -1, 0);
         }
 
@@ -161,6 +172,11 @@ namespace Terminal
         {
             _audioSource.clip = _terminal2;
             _audioSource.Play();
+        }
+
+        public void StopGoToTerminal()
+        {
+            _goToTerminalStop = true;
         }
     }
 }

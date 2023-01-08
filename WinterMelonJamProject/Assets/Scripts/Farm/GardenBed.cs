@@ -10,6 +10,8 @@ namespace Farm
 {
     public class GardenBed : MonoBehaviour, IPointerUpHandler, IPointerDownHandler
     {
+        [SerializeField] private CropsBase _cropsBase;
+
         public enum Phases
         {
             Phase0, // Empty
@@ -22,9 +24,6 @@ namespace Farm
         private Phases _phase;
 
         public Phases Phase { get { return _phase; } }
-
-        [Header("CropsBase")]
-        [SerializeField] private Sprite[] _crop1 = new Sprite[5];
 
         [Header("Times")]
         private const int _p1Time = 3;
@@ -39,7 +38,7 @@ namespace Farm
         private PlayerMove _player;
         private PlayerCropController _playerCropController;
 
-        private PlayerCropController.Crops _currentCrop;
+        [SerializeField] private CropsBase.CropsEnum _currentCrop;
         private float _currentTime;
 
         private SpriteRenderer _spriteRenderer;
@@ -67,6 +66,7 @@ namespace Farm
             _playerLevelController = _player.gameObject.GetComponent<PlayerLevelController>();
             _collider = GetComponent<Collider2D>();
             _audioSource = GetComponent<AudioSource>();
+            _cropsBase = _playerCropController.gameObject.GetComponent<CropsBase>();
 
             float x = (_playerLevelController.CurrentLevel - 1) * q;
 
@@ -126,7 +126,7 @@ namespace Farm
 
                     CheckSprite();
 
-                    _currentCrop = PlayerCropController.Crops.None;
+                    _currentCrop = CropsBase.CropsEnum.None;
                     _currentTime = 0f;
 
                     _playerCropController.AddCropValue(1);
@@ -134,9 +134,9 @@ namespace Farm
             }
         }
 
-        private void Sowing(PlayerCropController.Crops crop)
+        private void Sowing(CropsBase.CropsEnum crop)
         {
-            if (crop != PlayerCropController.Crops.None)
+            if (crop != CropsBase.CropsEnum.None)
             {
                 float x = (_playerLevelController.CurrentLevel - 1) * q;
 
@@ -184,8 +184,8 @@ namespace Farm
 
             switch (_currentCrop)
             {
-                case PlayerCropController.Crops.Crop1:
-                    currentSprites = _crop1;
+                case CropsBase.CropsEnum.Crop1:
+                    currentSprites = _cropsBase._CropsBase._Crop1.GardenBedSprites;
                     break;
             }
 
@@ -212,6 +212,7 @@ namespace Farm
                     break;
             }
         }
+
         public void OnPointerDown(PointerEventData eventData)
         {
             

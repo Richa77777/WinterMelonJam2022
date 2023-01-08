@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+guid: 5c133bece6a64de4a9edd8b519e46ce6
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - _animatorController: {fileID: 9100000, guid: c250ce7bdf97a834da07992114d4967b, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
