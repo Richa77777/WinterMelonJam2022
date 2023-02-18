@@ -7398,11 +7398,10 @@ MonoBehaviour:
   _awardText: {fileID: 689304549}
   _dialogTab: {fileID: 1170666767}
   _terminal: {fileID: 8300000, guid: 3a38b03ddfdf0a841a3e2676754b7fb6, type: 3}
-  _terminal2: {fileID: 8300000, guid: d68a7537a31c90540910e88abea4600d, type: 3}
+  _terminal2: {fileID: 8300000, guid: 3a38b03ddfdf0a841a3e2676754b7fb6, type: 3}
   _taskCompleted: {fileID: 8300000, guid: 11ee91841d967e74496a42526f88889d, type: 3}
   _notCompleted: {fileID: 8300000, guid: d2199a78eb3217f4bb1baad2c5b1965c, type: 3}
   _trigger: {fileID: 1495384679}
-  _goToTerminalStop: 1
 --- !u!82 &1225466841
 AudioSource:
   m_ObjectHideFlags: 0
@@ -8179,8 +8178,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _dialogAnimator: {fileID: 1170666769}
   _target: {fileID: 1801314468}
-  _goToDialogStop: 1
-  _returnStop: 1
 --- !u!1 &1529766498
 GameObject:
   m_ObjectHideFlags: 0
@@ -8942,7 +8939,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_EventMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 183
   m_MaxRayIntersections: 0
 --- !u!114 &1784135623
 MonoBehaviour:

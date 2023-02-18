@@ -77,8 +77,8 @@ namespace Terminal
                 
                 _animator.Play("Accept", -1, 0);
 
-                _audioSource.clip = _taskCompleted;
-                _audioSource.Play();
+                //_audioSource.clip = _taskCompleted;
+                _audioSource.PlayOneShot(_taskCompleted);
                 
                 _cropController.AddCropValue(-_cropsAmount);
                 _moneyController.AddMoney(_award);
